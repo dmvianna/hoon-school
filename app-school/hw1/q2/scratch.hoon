@@ -1,8 +1,13 @@
+:: Always be committing
 |commit %base
+
+:: csv-to-txt tube and check
 =csv-to-txt-tube .^(tube:clay %cc /===/csv/txt)
 =mycsv -read [%x our %base da+now /put/cars/csv]
 !<  @t  (csv-to-txt-tube !>(mycsv))
 
+
+:: txt-to-csv tube and check
 =txt-to-csv-tube .^(tube:clay %cc /===/txt/csv)
 
 !<  (list (list @t))
