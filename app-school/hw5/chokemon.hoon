@@ -61,7 +61,11 @@
   |=  [=wire =sign-arvo]
   ^-  [(list card) _this]
   ?+  wire  (on-arvo:def wire sign-arvo)
-    [%pokedex info=json]  :: Add to state and return json.
+    [%pokedex ~]  :: Is this a well formed pokemon name?
+      ~&  "Unknown pokemon."
+        [~ this]
+    [%pokedex @]  :: Add to state and return json.
+      =/  info  t.wire
       =/  reparse-name
         =,  dejs-soft:format
         |=  info=json
@@ -74,9 +78,6 @@
       ~&  info
       ~&  "{name} exists!"
       :_  this  (~(put by state) [name info])
-    [%pokedex ~]  :: Is this a well formed pokemon name?
-      ~&  "{name} is not a known pokemon."
-      [~ this]
   ==
 ++  on-fail  on-fail:def
 --
