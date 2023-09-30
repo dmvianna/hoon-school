@@ -69,7 +69,7 @@
       =/  reparse-name
         =,  dejs-soft:format
         |=  info=json
-        ^-  cord
+        ^-  @t
         =/  maybe  %-  ot  [%name so]
         ?~  maybe
             ~
