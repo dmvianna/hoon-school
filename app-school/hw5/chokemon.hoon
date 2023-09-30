@@ -40,7 +40,7 @@
   |=  [pokemon=@t =vase]
   ^-  [(list card) _this]
   :: Check if we already know this pokemon
-  =/  r  ((dig by values:state) pokemon)
+  =/  r  (~(dig by values.state) pokemon)
   ?~  r
     :: No we don't. Try to fetch it via thread.
     :-  ^-  (list card)
@@ -49,7 +49,7 @@
     this
   :: Yes we do. Just return it.
   ~&  r
-  ~&  "{pokemon} exists!"
+    ~&  pokemon  :: "{pokemon} exists!"
   [~ this]
 
 ::
@@ -68,8 +68,8 @@
       =/  info  t.t.wire
       =/  name  i.t.wire
       ~&  info
-      ~&  "{name} exists!"
-      :_  this  (~(put by values:state) [name info])
+      ~&  name  ::  "{name} exists!"
+      :_  this  ~  :: (~(put by values.state) [name info])
   ==
 ++  on-fail  on-fail:def
 --
