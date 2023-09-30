@@ -16,13 +16,17 @@
 --
 %-  agent:dbug
 =|  state-0
-=*  state -
+=*  state  -
 ^-  agent:gall
 |_  =bowl:gall
 +*  this  .
     default  ~(. (default-agent this %|) bowl)
 ::
-++  on-init  on-init:default
+++  on-init
+  ^-  [(list card) _this]
+  ~&  >  '%chokemon initialised successfully'
+  =.  state  [%0 *(map @t json)]
+  `this
 ++  on-save  !>(state)
 ++  on-load
   |=  old=vase
@@ -30,7 +34,7 @@
   :-  ^-  (list card)
       ~
   %=  this
-    state !<(state-0 old)
+    state  !<(state-0 old)
   ==
 ++  on-poke
   |=  [=pokemon =vase]
@@ -55,14 +59,14 @@
 ++  on-agent  on-agent:def
 ++  on-arvo
   |=  [=wire sign=sign-arvo]
-  ^-  (quip card _this)
-  ?+    wire  (on-arvo:default wire sign-arvo)
+  ^-  [(list card) _this]
+  ?+  wire  (on-arvo:default wire sign-arvo)
     [%pokedex json=info]  :: Add to state and return json.
-      ~&  j
-      ~&  "{pokemon} exists!"  (~(put by state) [name.info info])
+      ~&  info
+      ~&  "{name.info} exists!"
+      :_  this  (~(put by state) [name.info info])
     [%pokedex ~]  :: Is this a well formed pokemon name?
-      ~&  "{pokemon} is not a known pokemon."  !!
+      ~&  "{name.info} is not a known pokemon."
     [~ this]
-  ==
-++  on-fail   on-fail:def
+++  on-fail  on-fail:def
 --
