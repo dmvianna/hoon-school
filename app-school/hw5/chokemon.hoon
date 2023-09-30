@@ -20,7 +20,7 @@
 ^-  agent:gall
 |_  =bowl:gall
 +*  this     .
-    default  ~(. (default-agent this %|) bowl)
+    def      ~(. (default-agent this %|) bowl)
 ::
 ++  on-init
   ^-  [(list card) _this]
@@ -37,7 +37,7 @@
     state  !<(state-0 old)
   ==
 ++  on-poke
-  |=  [=pokemon =vase]
+  |=  [pokemon=@t =vase]
   ^-  [(list card) _this]
   :: Check if we already know this pokemon
   =/  r  ((dig by state) pokemon)
@@ -58,13 +58,13 @@
 ++  on-peek   on-peek:def
 ++  on-agent  on-agent:def
 ++  on-arvo
-  |=  [=wire sign=sign-arvo]
+  |=  [=wire =sign-arvo]
   ^-  [(list card) _this]
-  ?+  wire  (on-arvo:default wire sign-arvo)
-    [%pokedex json=info]  :: Add to state and return json.
+  ?+  wire  (on-arvo:def wire sign-arvo)
+    [%pokedex info=json]  :: Add to state and return json.
       =/  reparse-name
         =,  dejs-soft:format
-        |=  json=info
+        |=  info=json
         ^-  cord
         =/  maybe  %-  ot  [%name so]
         ?~  maybe
@@ -76,7 +76,7 @@
       :_  this  (~(put by state) [name info])
     [%pokedex ~]  :: Is this a well formed pokemon name?
       ~&  "{name} is not a known pokemon."
-    [~ this]
+      [~ this]
   ==
 ++  on-fail  on-fail:def
 --
