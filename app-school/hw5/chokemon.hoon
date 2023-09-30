@@ -64,20 +64,12 @@
     [%pokedex ~]  :: Is this a well formed pokemon name?
       ~&  "Unknown pokemon."
         [~ this]
-    [%pokedex @]  :: Add to state and return json.
-      =/  info  t.wire
-      =/  reparse-name
-        =,  dejs-soft:format
-        |=  info=json
-        ^-  @t
-        =/  maybe  %-  ot  [%name so]
-        ?~  maybe
-            ~
-          +<:maybe
-      =/  name  (reparse-name info)
+    [%pokedex [@t @]]  :: Add to state and return json.
+      =/  info  t.t.wire
+      =/  name  i.t.wire
       ~&  info
       ~&  "{name} exists!"
-      :_  this  (~(put by state) [name info])
+      :_  this  (~(put by values) [`@t`name `json`info])
   ==
 ++  on-fail  on-fail:def
 --
